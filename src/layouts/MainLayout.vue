@@ -3,9 +3,9 @@
     <q-header :class="($q.dark.isActive?'text-white':'text-black') + ' bg-transparent q-pa-sm'">
       <q-toolbar>
         <router-link to="/">
-          <img src="../assets/raydium-logo-analytics.svg" height="50" class="q-mr-md" alt="Raydium Analytics" />
+          <img src="../assets/raydium-logo-analytics.svg" height="50" class="q-mr-md" alt="Saber Analytics" />
         </router-link>
-        <q-tabs indicator-color="raydium-purple">
+        <q-tabs indicator-color="saber-purple">
           <q-route-tab
             to="/"
             label="Dashboard"

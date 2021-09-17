@@ -1,7 +1,7 @@
 
 <template>
   <q-page class="q-pa-xl">
-    <div class="bg-raydium-gradient rounded-borders q-pa-one">
+    <div class="rounded-borders q-pa-one">
       <q-table
         title="Pools"
         :rows="displayed_pools"
@@ -53,7 +53,7 @@ export default defineComponent({
   name: 'IndexPage',
   computed: {
     displayed_pools() {
-      return this.pools.filter((pool) => pool.version > 2).map((pool) => ({
+      return this.pools.map((pool) => ({
         ...pool,
         coin: get_token(pool.coin.address, pool.coin),
         pc: get_token(pool.pc.address, pool.pc),

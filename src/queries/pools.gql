@@ -2,7 +2,6 @@
     pools {
         ammId
         name
-        version
         coin {
             chainId
             address

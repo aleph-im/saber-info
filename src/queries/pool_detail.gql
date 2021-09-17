@@ -2,7 +2,6 @@ query pool_detail($address: String!) {
   pool(address: $address) {
     ammId
     name
-    version
     coin {
       address
       name

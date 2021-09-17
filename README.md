@@ -1,6 +1,6 @@
-# Raydium Info (raydium-info)
+# Saber Info (saber-info)
 
-Raydium info powered by aleph.im
+Saber info powered by aleph.im
 
 ## Install the dependencies
 ```bash
