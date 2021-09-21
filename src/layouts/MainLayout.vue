@@ -3,7 +3,7 @@
     <q-header :class="($q.dark.isActive?'text-white':'text-black') + ' bg-transparent q-pa-sm'">
       <q-toolbar>
         <router-link to="/">
-          <img src="../assets/raydium-logo-analytics.svg" height="50" class="q-mr-md" alt="Saber Analytics" />
+          <img src="../assets/saber-logo.svg" height="30" class="q-mr-md" alt="Saber Analytics" />
         </router-link>
         <q-tabs indicator-color="saber-purple">
           <q-route-tab
@@ -13,9 +13,6 @@
           />
         </q-tabs>
         <q-space />
-        <a href="https://aleph.im" target="_blank" rel="noopener">
-          <img src="../assets/aleph-logo-powered.svg" height="30" alt="powered by aleph.im"/>
-        </a>
       </q-toolbar>
     </q-header>
 
@@ -27,6 +24,14 @@
         <span>Loading!</span>
       </template>
     </q-page-container>
+    <q-footer :class="($q.dark.isActive?'text-white':'text-black') + ' bg-transparent q-pa-sm'">
+      <q-toolbar>
+        <q-space />
+        <a href="https://aleph.im" target="_blank" rel="noopener" >
+          <img src="../assets/aleph-logo-powered.svg" height="30" alt="powered by aleph.im"/>
+        </a>
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 
