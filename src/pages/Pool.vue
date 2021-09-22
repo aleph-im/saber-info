@@ -87,17 +87,17 @@
             narrow-indicator
             indicator-color="saber-purple"
           >
-            <q-tab name="price" label="Price" />
             <q-tab name="tvl" label="TVL" />
+            <q-tab name="price" label="Price" />
             <q-tab name="volume" label="Volume" />
           </q-tabs>
           <q-separator />
           <q-tab-panels v-model="chartTab" animated>
-            <q-tab-panel name="price" class="bg-dark-60">
-              <apexchart type="area" height="350" :options="priceChartOptions" :series="priceSeries"></apexchart>
-            </q-tab-panel>
             <q-tab-panel name="tvl" class="bg-dark-60">
               <apexchart type="area" height="350" :options="tvlChartOptions" :series="tvlSeries"></apexchart>
+            </q-tab-panel>
+            <q-tab-panel name="price" class="bg-dark-60">
+              <apexchart type="area" height="350" :options="priceChartOptions" :series="priceSeries"></apexchart>
             </q-tab-panel>
             <q-tab-panel name="volume" class="bg-dark-60">
               <apexchart type="area" height="350" :options="volumeChartOptions" :series="volumeSeries"></apexchart>
@@ -142,7 +142,7 @@ export default defineComponent({
   },
   data() {
     return {
-      chartTab: 'price'
+      chartTab: 'tvl'
     }
   },
   computed: {

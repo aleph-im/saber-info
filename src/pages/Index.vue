@@ -24,7 +24,7 @@
               <q-avatar size="xs">
                 <img :src="props.row.pc.logoURI">
               </q-avatar>
-                {{ props.row.name }}
+                {{ props.row.coin.symbol }}-{{ props.row.pc.symbol }}
               </router-link>
             </q-td>
             <q-td key="tvl" :props="props">
@@ -48,6 +48,7 @@ import { client } from '../services/graphql'
 import { get_token } from '../services/tokens'
 import numeral from "numeral"
 import moment from "moment"
+
 
 export default defineComponent({
   name: 'IndexPage',

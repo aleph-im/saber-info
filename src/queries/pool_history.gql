@@ -7,22 +7,22 @@ query pool_history($address: String!) {
       pool {
         name
         coin {
-          symbol
+          address
           decimals
         }
         pc {
-          symbol
+          address
           decimals
         }
       }
       source_amount
       source_token {
-        symbol
+        address
         decimals
       }
       target_amount
       target_token {
-        symbol
+        address
         decimals
       }
       coin_amount

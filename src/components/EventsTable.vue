@@ -25,13 +25,19 @@
         <q-tr :props="props">
           <q-td key="title" :props="props" class="text-white" style="min-width: 350px">
             <a v-if="props.row.type == 'swap'" :href="`https://solscan.io/tx/${props.row.signature}`" target="_blank" rel="noopener">
-              Swap {{ props.row.meta.source_token ? props.row.meta.source_token.symbol : "???" }} for {{  props.row.meta.target_token ? props.row.meta.target_token.symbol : "???" }}
+              Swap {{ props.row.meta.source_token ? get_token(props.row.meta.source_token.address).symbol : "???" }} for {{  props.row.meta.target_token ? get_token(props.row.meta.target_token.address).symbol : "???" }}
             </a>
             <a v-else-if="props.row.meta.pool && (props.row.type == 'deposit')" :href="`https://solscan.io/tx/${props.row.signature}`" target="_blank" rel="noopener">
-              Add {{ props.row.meta.pool.coin.symbol }} and {{ props.row.meta.pool.pc.symbol }}
+              Add {{ get_token(props.row.meta.pool.coin.address).symbol }} and {{ get_token(props.row.meta.pool.pc.address).symbol }}
             </a>
             <a v-else-if="props.row.meta.pool && (props.row.type == 'withdraw')" :href="`https://solscan.io/tx/${props.row.signature}`" target="_blank" rel="noopener">
-              Remove {{ props.row.meta.pool.coin.symbol }} and {{ props.row.meta.pool.pc.symbol }}
+              Remove {{ get_token(props.row.meta.pool.coin.address).symbol }} and {{ get_token(props.row.meta.pool.pc.address).symbol }}
+            </a>
+            <a v-else-if="props.row.meta.pool && (props.row.type == 'withdrawOne')" :href="`https://solscan.io/tx/${props.row.signature}`" target="_blank" rel="noopener">
+              Remove {{ props.row.pc_amount ? get_token(props.row.meta.pool.pc.address).symbol : get_token(props.row.meta.pool.coin.address).symbol }}
+            </a>
+            <a v-else :href="`https://solscan.io/tx/${props.row.signature}`" target="_blank" rel="noopener">
+              {{props.row.type}}
             </a>
           </q-td>
           <q-td key="usd_value" :props="props">
@@ -70,6 +76,7 @@
 import { defineComponent } from 'vue'
 import numeral from "numeral"
 import moment from "moment"
+import { get_token } from '../services/tokens'
 
 export default defineComponent({
   name: 'EventsTable',
@@ -84,7 +91,8 @@ export default defineComponent({
       if (this.tab === "all")
         return events
       else {
-        return events.filter((ev) => (ev.type === this.tab))
+        
+        return events.filter((ev) => (ev.type.includes(this.tab)))
       }
     },
     formattedEvents() {
@@ -105,6 +113,7 @@ export default defineComponent({
       tab: "all",
       moment: moment,
       numeral: numeral,
+      get_token: get_token,
       eventCols: [
         {
           name: 'title',
