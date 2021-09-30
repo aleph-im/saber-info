@@ -25,12 +25,3 @@ export async function get_coin_stats() {
   return coin_stats
 }
 
-export function get_token_price(symbol, coin_stats) {
-  if (symbol.includes('USD'))
-    return 1
-  for (let token of Object.values(coin_stats)) {
-    if (symbol.includes(token['symbol']))
-      return token['current_price']
-  }
-  return null
-}

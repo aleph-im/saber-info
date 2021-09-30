@@ -9,7 +9,7 @@
         row-key="name"
         :pagination="{
           rowsPerPage: 25,
-          sortBy: 'tvl',
+          sortBy: 'tvl_usd',
           descending: true
         }"
         class="bg-dark-opacity"
