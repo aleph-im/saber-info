@@ -27,9 +27,10 @@
             logoURI
         }
         stats {
-            tvl_usd
+            tvl_pc
+            tvl_coin
             price
-            vol24h_usd
+            vol24h
         }
     }
 }

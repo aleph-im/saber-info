@@ -26,7 +26,7 @@
       </div>
       <div class="q-gutter-md">
         <q-btn color="card" label="Add liquidity" type="a" disabled target="_blank" rel="noopener" />
-        <q-btn color="primary" label="Swap" type="a" disabled  target="_blank" rel="noopener" />
+        <q-btn color="saber-gradient" label="Swap" type="a" disabled  target="_blank" rel="noopener" />
       </div>
     </div>
     <div class="flex q-gutter-md q-mb-md items-stretch">
@@ -68,11 +68,11 @@
           </div>
           <p class="q-pt-md text-bold q-mb-none">TVL</p>
           <p class="text-h5">
-            {{ numeral(pool.stats.tvl_usd).format("0,0 $") }}
+            {{ numeral(pool.tvl_usd).format("0,0 $") }}
           </p>
           <p class="q-pt-md text-bold q-mb-none">Volume (24h)</p>
           <p class="text-h5">
-            {{ numeral(pool.stats.vol24h_usd).format("0,0 $") }}
+            {{ numeral(pool.vol24h_usd).format("0,0 $") }}
           </p>
         </q-card-section>
       </q-card>
@@ -133,6 +133,8 @@ import numeral from "numeral";
 import moment from "moment";
 import EventsTable from "src/components/EventsTable.vue";
 import EventsHistory from "src/components/EventsHistory.vue";
+import { prepare_pool } from "src/utils/pools";
+import store from "../store";
 
 export default defineComponent({
   components: { EventsTable, EventsHistory },
@@ -295,8 +297,9 @@ export default defineComponent({
     let result = await client.request(poolquery, {
       address: props.address,
     });
-    result.pool.coin = get_token(result.pool.coin.address, result.pool.coin)
-    result.pool.pc = get_token(result.pool.pc.address, result.pool.pc)
+    result.pool = prepare_pool(result.pool, store.state.coin_stats)
+    // result.pool.coin = get_token(result.pool.coin.address, result.pool.coin)
+    // result.pool.pc = get_token(result.pool.pc.address, result.pool.pc)
     return {
       numeral,
       ...result,

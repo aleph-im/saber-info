@@ -1,5 +1,6 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
+import { get_coin_stats } from '../services/coingecko'
 
 // import example from './module-example'
 
@@ -12,16 +13,29 @@ import { createStore } from 'vuex'
  * with the Store instance.
  */
 
-export default store(function (/* { ssrContext } */) {
-  const Store = createStore({
-    modules: {
-      // example
-    },
+export default createStore({
+  modules: {
+    // example
+  },
 
-    // enable strict mode (adds overhead!)
-    // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
-  })
+  state: {
+    coin_stats: {}
+  },
 
-  return Store
+  mutations: {
+    set_coin_stats (state, coins) {
+      state.coin_stats = coins
+    }
+  },
+
+  actions: {
+    async update_coin_stats ({ commit }) {
+      let coin_stats = await get_coin_stats()
+      commit('set_coin_stats', coin_stats)
+    }
+  },
+
+  // enable strict mode (adds overhead!)
+  // for dev mode and --debug builds only
+  strict: process.env.DEBUGGING
 })

@@ -27,11 +27,11 @@
                 {{ props.row.coin.symbol }}-{{ props.row.pc.symbol }}
               </router-link>
             </q-td>
-            <q-td key="tvl" :props="props">
-              {{ numeral(props.row.tvl).format("0,0 $") }}
+            <q-td key="tvl_usd" :props="props">
+              {{ numeral(props.row.tvl_usd).format("0,0 $") }}
             </q-td>
-            <q-td key="vol24h" :props="props">
-              {{ numeral(props.row.vol24h).format("0,0 $") }}
+            <q-td key="vol24h_usd" :props="props">
+              {{ numeral(props.row.vol24h_usd).format("0,0 $") }}
             </q-td>
           </q-tr>
         </template>
@@ -41,36 +41,36 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import poolquery from '../queries/pools.gql'
 import { client } from '../services/graphql'
-import { get_token } from '../services/tokens'
 import numeral from "numeral"
 import moment from "moment"
+import {useStore} from "vuex"
+import store from "../store"
+import {prepare_pool} from '../utils/pools'
 
 
 export default defineComponent({
   name: 'IndexPage',
-  computed: {
-    displayed_pools() {
-      return this.pools.map((pool) => ({
-        ...pool,
-        coin: get_token(pool.coin.address, pool.coin),
-        pc: get_token(pool.pc.address, pool.pc),
-        tvl: pool.stats.tvl_usd,
-        vol24h: pool.stats.vol24h_usd,
-      })).sort((a, b) => (
-        a.tvl < b.tvl
-      ))
-    }
-  },
   async setup() {
     let result = await client.request(poolquery)
     console.log(result)
+    console.log(store)
+    await store.dispatch('update_coin_stats')
+
+    const displayed_pools = computed(() => {
+      return result.pools.map(
+        (pool) => prepare_pool(pool, store.state.coin_stats)
+      ).sort((a, b) => (
+        a.tvl_usd < b.tvl_usd
+      ))
+    })
 
     return {
       pools: result.pools,
+      displayed_pools: displayed_pools,
       poolcols: [
         {
           name: 'name',
@@ -80,15 +80,15 @@ export default defineComponent({
           sortable: true
         },
         {
-          'name': 'tvl',
+          'name': 'tvl_usd',
           'label': 'TVL',
-          'field': 'tvl',
+          'field': 'tvl_usd',
           sortable: true
         },
         {
-          'name': 'vol24h',
+          'name': 'vol24h_usd',
           'label': 'Volume (24h)',
-          'field': 'vol24h',
+          'field': 'vol24h_usd',
           sortable: true
         }
       ],

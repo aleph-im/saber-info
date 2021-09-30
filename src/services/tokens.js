@@ -37,7 +37,6 @@ for (let pool of pools) {
 }
 
 export function get_token(address, def) {
-    console.log(address)
     if (overlay[address] !== undefined)
         return overlay[address]
     else if (def !== undefined)
