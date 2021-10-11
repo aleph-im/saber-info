@@ -5,7 +5,8 @@ const market_ids = [
     'terra-luna',
     'solana',
     'ftx-token',
-    'serum'
+    'serum',
+    'ethereum'
 ]
 
 const coingecko_api_url = "https://api.coingecko.com/api/v3/coins/markets"
