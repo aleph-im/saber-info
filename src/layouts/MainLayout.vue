@@ -112,6 +112,10 @@ export default defineComponent({
   padding: 0 10px;
   word-wrap: normal;
 
+  @media (max-width: $breakpoint-sm-max) {
+    padding: 0 2px;
+  }
+
   .title {
     font-size: 3rem;
 

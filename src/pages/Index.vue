@@ -1,6 +1,6 @@
 
 <template>
-  <q-page class="q-pa-xl">
+  <q-page :class="$q.screen.gt.sm ? 'q-pa-xl': 'q-pa-sm'">
     <div class="row q-col-gutter-md q-mb-md">
       <div class="col-12 col-md-6">
         <q-card>
