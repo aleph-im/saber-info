@@ -125,7 +125,6 @@
 
 <script>
 import { defineComponent } from "vue"
-
 import poolquery from "../queries/pool_detail.gql"
 import { client } from "../services/graphql"
 import { get_token } from '../services/tokens'
@@ -297,6 +296,9 @@ export default defineComponent({
     let result = await client.request(poolquery, {
       address: props.address,
     });
+    if(Object.values(store.state.coin_stats).length == 0) {
+      await store.dispatch('update_coin_stats')
+    }
     result.pool = prepare_pool(result.pool, store.state.coin_stats)
     // result.pool.coin = get_token(result.pool.coin.address, result.pool.coin)
     // result.pool.pc = get_token(result.pool.pc.address, result.pool.pc)
